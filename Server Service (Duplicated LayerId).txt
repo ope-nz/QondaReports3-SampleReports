@@ -1,0 +1,10 @@
+select Id as "Layer Id",count(Id) as Count,group_concat(S.Folder||'/'||S.Name||'/'||L.Name,'<br>') as "In Services"
+from server_layers L, server_services S, relationship R
+where L.EnvironmentId = [SERVER]
+and R.FromType = 'server_service' and R.ToType = 'server_layer'
+and L.Key = R.ToKey
+and R.FromKey = S.Key
+and S.Type = 'MapServer'
+group by L.Id
+having count(Id) > 1
+order by Id
