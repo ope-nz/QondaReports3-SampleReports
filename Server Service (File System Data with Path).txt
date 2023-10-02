@@ -1,0 +1,16 @@
+select 
+distinct
+dw.OnServerName,
+dw.ServerFilePath,
+case length(sv.Folder) when 0 THEN sv.Name ELSE sv.Folder||'/'||sv.Name END as 'Service Name'
+from data_workspaces dw,
+data_items di,
+relationship r1,
+server_services sv,
+relationship r2
+where sv.EnvironmentId > 0
+and dw.databaseclient = 'File System'
+and dw.key = r1.FromKey
+and r1.ToKey = r2.FromKey
+and r2.ToKey = sv.Key
+order by lower(dw.OnServerName),dw.ServerFilePath,'Service Name'
