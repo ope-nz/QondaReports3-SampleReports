@@ -7,6 +7,7 @@ from
 portal_items pi,
 server_layers sl,
 relationship r
-where sl.EnvironmentId = -1
+where pi.EnvironmentId = [PORTAL]
+and sl.EnvironmentId = -1
 and r.FromKey = sl.Key
 and r.ToKey = pi.Key
