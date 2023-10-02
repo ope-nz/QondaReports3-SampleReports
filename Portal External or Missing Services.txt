@@ -2,7 +2,7 @@ select
 pi.Title,pi.Type,pi.Owner,
 'Service' as "Missing Type",
 sv.FullName,
-sv.URL
+sv.URL as "Missing URL"
 from
 portal_items pi,
 server_services sv,
