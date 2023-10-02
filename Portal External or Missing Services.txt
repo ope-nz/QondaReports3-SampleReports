@@ -1,0 +1,12 @@
+select
+pi.Title,pi.Type,pi.Owner,
+'Service' as "Missing Type",
+sv.FullName,
+sv.URL
+from
+portal_items pi,
+server_services sv,
+relationship r
+where sv.EnvironmentId = -1
+and r.FromKey = sv.Key
+and r.ToKey = pi.Key
