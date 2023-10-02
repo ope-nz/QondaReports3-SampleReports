@@ -1,0 +1,12 @@
+select
+pi.Title,pi.Type,pi.Owner,
+'Layer' as "Missing Type",
+sl.Name,
+sl.URL as "Missing URL"
+from
+portal_items pi,
+server_layers sl,
+relationship r
+where sl.EnvironmentId = -1
+and r.FromKey = sl.Key
+and r.ToKey = pi.Key
