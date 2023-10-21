@@ -1,3 +1,6 @@
+-- Similar to the AGOL admin report
+-- A report listing the attributes of each item in your organization
+
 select
 Title,
 Id as "Item Id",
