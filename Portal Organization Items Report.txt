@@ -1,0 +1,21 @@
+select
+Title,
+Id as "Item Id",
+URL as "Item URL",
+Type as "Item Type",
+strftime('%d/%m/%Y', datetime(Created/1000.0, 'unixepoch')) as "Date Created",
+strftime('%d/%m/%Y', datetime(Modified/1000.0, 'unixepoch')) as "Date Modified",
+'' as "Content Category",
+NumViews as "View Counts",
+Owner,
+IIF((Type = 'Feature Service' and url like '%services/Hosted/%/FeatureServer'),0,round(Size/1024.0/1024.0,3)) as "File Storage Size",
+IIF((Type = 'Feature Service' and url like '%services/Hosted/%/FeatureServer'),round(Size/1024.0/1024.0,3),0) as "Feature Storage Size",
+Access as "Share Level",
+(select count(*) from relationship where FromKey = '40~'||i.Id and ToType = 'portal_group') as "# of Groups shared with",
+Tags,
+NumComments as "Number of Comments",
+IIF((Type = 'Feature Service' and url like '%atlas.ghd.com%services/Hosted/%/FeatureServer'),'TRUE','FALSE') as "Is Hosted Service",
+'' as "Date Last Viewed"
+from portal_items i
+where EnvironmentId = 40
+order by Title
