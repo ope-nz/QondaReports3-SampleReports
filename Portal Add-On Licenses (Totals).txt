@@ -1,0 +1,5 @@
+select 
+Title, Name, MaxUsers,UserCount,OfflineUserCount
+from portal_addon_licenses
+where EnvironmentId = [PORTAL]
+order by Title,Name
