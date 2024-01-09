@@ -1,0 +1,15 @@
+select 
+u.UserName,
+l.Title,l.Name,
+IIF(u.DesktopLicenseLastLogin>0,strftime('%Y-%m-%d %H:%M:%S', u.DesktopLicenseLastLogin/1000, 'unixepoch'),'Never') as LastUsed,
+u.DesktopLicenseOffline
+from portal_users u,
+portal_addon_licenses l,
+relationship r
+where
+r.fromtype = 'portal_user'
+and r.totype = 'portal_addon_license'
+and u.key = r.fromkey
+and l.key = r.tokey
+and u.EnvironmentId = [PORTAL]
+order by u.UserName,l.Title,l.Name
